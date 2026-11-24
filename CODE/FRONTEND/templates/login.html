@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Graphical Isomorphism Network for PCOD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      text-align: center;
+      background-color: #000;
+      position: relative;
+    }
+
+    /* Background Image */
+    .bg-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(40%) blur(1px);
+      z-index: -2;
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(12px);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #0ea5e9;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo i {
+      font-size: 1.8rem;
+      color: #38bdf8;
+    }
+
+    .nav {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+
+    .nav li a.active,
+    .nav li a:hover {
+      background: #0ea5e9;
+      color: white;
+      box-shadow: 0 4px 15px rgba(14,165,233,0.3);
+    }
+
+    .login-btn a {
+      background: #0ea5e9;
+      color: white;
+      padding: 0.6rem 1.6rem;
+      border-radius: 50px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(14,165,233,0.3);
+    }
+
+    .login-btn a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(14,165,233,0.4);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 100px 20px 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-container {
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 450px;
+      box-shadow: 0 8px 30px rgba(14, 165, 233, 0.25);
+      text-align: left;
+    }
+
+    .login-container h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .login-container h1 span {
+      color: #0ea5e9;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 1rem;
+      border: 1px solid #0ea5e9;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 1rem;
+      transition: 0.3s ease;
+    }
+
+    .form-group input::placeholder {
+      color: #cbd5e1;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      background: rgba(255,255,255,0.2);
+      border-color: #fff;
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: #0ea5e9;
+      color: #fff;
+      padding: 1rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(14, 165, 233, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(14, 165, 233, 0.4);
+    }
+
+    .extra-links {
+      text-align: center;
+      margin-top: 1.2rem;
+    }
+
+    .extra-links a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: 0.3s ease;
+    }
+
+    .extra-links a:hover {
+      color: #7dd3fc;
+    }
+
+    .message {
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 1rem;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    .message.error {
+      background: rgba(239,68,68,0.15);
+      border-left: 4px solid #ef4444;
+      color: #fecaca;
+    }
+    .message.success {
+      background: rgba(34,197,94,0.15);
+      border-left: 4px solid #22c55e;
+      color: #bbf7d0;
+    }
+
+    footer {
+      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+      color: white;
+      text-align: center;
+      padding: 1.2rem;
+      margin-top: 50px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .login-container { width: 90%; padding: 2rem 1.5rem; }
+      .login-container h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Image -->
+  <img src="https://images.pexels.com/photos/3585089/pexels-photo-3585089.jpeg" alt="Oral Health Background" class="bg-image">
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">
+      <i class="fas fa-brain"></i> GIN-PCOD
+    </div>
+    <ul class="nav">
+      <li><a href="/index2">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/register">Register</a></li>
+      <li class="login-btn"><a href="/login" class="active">Login</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="login-container">
+      <h1>Login to <span>Graphical Isomorphism Network for PCOD</span></h1>
+
+      {% if message %}
+        <div class="message error">{{ message }}</div>
+      {% endif %}
+
+      <form method="POST" action="/login">
+        <div class="form-group">
+          <input type="email" name="email" placeholder="Email Address" required>
+        </div>
+        <div class="form-group">
+          <input type="password" name="password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="btn-primary">Login Now <i class="fas fa-arrow-right"></i></button>
+
+        <div class="extra-links">
+          <a href="/register">New user? Register here</a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Graphical Isomorphism Network for PCOD Prediction & Risk Stratification. All rights reserved.
+  </footer>
+
+</body>
+</html>

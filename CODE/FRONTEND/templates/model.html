@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Graphical Isomorphism Network for PCOD Disease Prediction and Risk Stratification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            background-color: #000;
+        }
+
+        .bg-image {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            filter: brightness(45%) blur(2px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #0ea5e9;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo i { font-size: 1.8rem; }
+
+        .nav {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .nav li a.active,
+        .nav li a:hover {
+            background: #0ea5e9;
+            color: white;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+        }
+
+        .logout-btn a {
+            background: #0ea5e9;
+            color: white;
+            padding: 0.6rem 1.6rem;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 120px;
+            padding-bottom: 50px;
+        }
+
+        .model-box {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            max-width: 900px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .model-box h2 {
+            font-size: 2rem;
+            color: #0ea5e9;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .model-box p {
+            color: #e2e8f0;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .dropdown-box {
+            margin: 1.5rem auto 2.5rem;
+        }
+
+        select {
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 240px;
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        select:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        option { color: black; }
+
+        button {
+            background: #0ea5e9;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4);
+        }
+
+        .highlight { color: #22c55e; font-weight: 700; }
+
+        footer {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: white;
+            padding: 1.5rem 5%;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .model-box h2 { font-size: 1.6rem; }
+            .nav { gap: 1rem; flex-wrap: wrap; }
+            select { width: 200px; }
+        }
+    </style>
+</head>
+
+<body>
+  <img src="https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg" alt="background" class="bg-image">
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo"><i class="fas fa-brain"></i> GIN-PCOD</div>
+    <ul class="nav">
+      <li><a href="{{ url_for('home') }}">Home</a></li>
+      <li><a href="{{ url_for('upload') }}">Upload</a></li>
+      <li><a href="{{ url_for('model') }}" class="active">Model</a></li>
+      <li><a href="{{ url_for('prediction') }}">Detection</a></li>
+      <li class="logout-btn"><a href="{{ url_for('index2') }}">Logout</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Section -->
+  <main>
+    <div class="model-box">
+      <h2>Graphical Isomorphism Network for PCOD Disease Prediction and Risk Stratification</h2>
+      <p>Select an algorithm below to view its performance on the PCOD dataset for disease prediction and risk assessment using GIN.</p>
+
+      <form method="POST" class="dropdown-box">
+        <select name="algo" required>
+          <option value="">-- Select Algorithm --</option>
+          <option value="xgboost">XGBoost</option>
+          <option value="random_forest">Random Forest</option>
+          <option value="cnn">CNN</option>
+        </select>
+        <br>
+        <button type="submit">Show Accuracy</button>
+      </form>
+
+      {% if msg %}
+        <p style="color:#22c55e; font-weight:600; margin-bottom:10px;">{{ msg }}</p>
+      {% endif %}
+      {% if msg1 %}
+        <p style="color:#38bdf8; font-weight:600;">{{ msg1 }}</p>
+      {% endif %}
+      {% if msg2 %}
+        <p style="color:#e2e8f0; margin-bottom:20px;">{{ msg2 }}</p>
+      {% endif %}
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 Graph Isomorphism Network for PCOD Disease Prediction & Risk Stratification. All rights reserved.<br>
+    Powered by Machine Learning | Made with <i class="fas fa-heart"></i> by Your Team
+  </footer>
+</body>
+</html>

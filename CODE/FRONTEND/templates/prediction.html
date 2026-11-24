@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Graphical Isomorphism Network for PCOD Disease Prediction and Risk Stratification</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      text-align: center;
+    }
+    .bg-image {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -2;
+      filter: brightness(45%) blur(1px);
+    }
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 5%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(12px);
+      position: fixed; width: 100%; top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    .logo {
+      font-size: 1.6rem; font-weight: 700; color: #0ea5e9;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .logo i { font-size: 1.8rem; }
+    .nav {
+      display: flex; list-style: none; gap: 2rem; align-items: center;
+    }
+    .nav li a {
+      color: #fff; text-decoration: none;
+      font-weight: 500; font-size: 1rem;
+      padding: 0.5rem 1rem; border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+    .nav li a.active, .nav li a:hover {
+      background: #0ea5e9; color: white;
+      box-shadow: 0 4px 15px rgba(14,165,233,0.3);
+    }
+    .logout-btn a {
+      background: #0ea5e9; color: white;
+      padding: 0.6rem 1.6rem;
+      border-radius: 50px; font-weight: 600;
+      box-shadow: 0 4px 15px rgba(14,165,233,0.3);
+    }
+    .logout-btn a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(14,165,233,0.4);
+    }
+    .hero {
+      min-height: 90vh; display: flex;
+      flex-direction: column; justify-content: center; align-items: center;
+      padding: 120px 20px 40px; position: relative; z-index: 1;
+    }
+    .prediction-box {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 2rem 2.5rem;
+      max-width: 900px; width: 100%;
+      color: #f8fafc;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+    h1 {
+      font-size: 2.4rem; font-weight: 700; color: #0ea5e9; margin-bottom: 1.5rem;
+    }
+    .form-group {
+      display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 1rem;
+    }
+    .form-control {
+      flex: 1 1 250px;
+      padding: 12px; border: none; border-radius: 10px;
+      font-size: 1rem; outline: none;
+      background: rgba(255,255,255,0.15); color: white;
+    }
+    .form-control::placeholder { color: rgba(255,255,255,0.7); }
+    .btn-predict {
+      width: 100%; background: #0ea5e9; color: #fff;
+      padding: 12px; border-radius: 50px; border: none;
+      font-size: 1.1rem; font-weight: 600;
+      margin-top: 20px; transition: all 0.3s ease; cursor: pointer;
+      box-shadow: 0 8px 25px rgba(14,165,233,0.3);
+    }
+    .btn-predict:hover { background: #0284c7; transform: translateY(-3px); }
+
+    /* 🔹 Result Colors */
+    .result-box {
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+      text-align: left;
+      color: #fff;
+      animation: fadeIn 0.8s ease;
+    }
+    .excellent { background: linear-gradient(135deg, #22c55e, #16a34a); border-left: 6px solid #14532d; }
+    .minor { background: linear-gradient(135deg, #3b82f6, #2563eb); border-left: 6px solid #1e3a8a; }
+    .moderate { background: linear-gradient(135deg, #facc15, #ca8a04); border-left: 6px solid #78350f; color: #fff3c4; }
+    .severe { background: linear-gradient(135deg, #ef4444, #b91c1c); border-left: 6px solid #450a0a; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+      color: white; text-align: center;
+      padding: 1.2rem; margin-top: 50px; font-size: 0.9rem;
+    }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.8rem; }
+      .prediction-box { padding: 1.5rem; }
+      .form-control { flex: 1 1 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <img src="https://images.pexels.com/photos/8534460/pexels-photo-8534460.jpeg" class="bg-image" alt="Health Background">
+
+  <nav>
+    <div class="logo"><i class="fas fa-brain"></i> PCOD Prediction</div>
+    <ul class="nav">
+      <li><a href="{{ url_for('home') }}">Home</a></li>
+      <li><a href="{{ url_for('upload') }}">Upload</a></li>
+      <li><a href="{{ url_for('model') }}">Model</a></li>
+      <li><a href="{{ url_for('prediction') }}" class="active">Prediction</a></li>
+      <li class="logout-btn"><a href="{{ url_for('index2') }}">Logout</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="prediction-box">
+      <h1>PCOD Disease Prediction & Risk Stratification</h1>
+
+      {% if error %}
+      <div class="result-box severe">
+        <strong>Error:</strong> {{ error }}
+      </div>
+      {% endif %}
+
+      {% if predictions %}
+        {% for result in predictions %}
+        <div class="result-box 
+          {% if result.Health_State == 'A' %}excellent{% elif result.Health_State == 'B' %}minor
+          {% elif result.Health_State == 'C' %}moderate{% elif result.Health_State == 'D' %}severe{% endif %}">
+          <h3 style="margin-bottom:6px;">Prediction: <strong>{{ result.Health_State }}</strong></h3>
+          <p><strong>Suggestion:</strong> {{ result.Suggestion }}</p>
+          <p><strong>Confidence:</strong> {{ result.Confidence }}%</p>
+        </div>
+        {% endfor %}
+      {% endif %}
+      <br>
+
+      <form method="POST" action="{{ url_for('prediction') }}">
+        <div class="form-group">
+          <input type="number" step="any" name="number_of_peak" placeholder="Number of Peak" class="form-control" required>
+          <input type="number" step="any" name="Age" placeholder="Age" class="form-control" required>
+          <input type="number" step="any" name="Length_of_cycle" placeholder="Length of Cycle" class="form-control" required>
+          <input type="number" step="any" name="Estimated_day_of_ovulution" placeholder="Estimated Day of Ovulation" class="form-control" required>
+          <input type="number" step="any" name="Length_of_Leutal_Phase" placeholder="Length of Leutal Phase" class="form-control" required>
+          <input type="number" step="any" name="Length_of_menses" placeholder="Length of Menses" class="form-control" required>
+          <input type="number" step="any" name="Unusual_Bleeding" placeholder="Unusual Bleeding" class="form-control" required>
+          <input type="number" step="any" name="Height" placeholder="Height (in cm)" class="form-control" required>
+          <input type="number" step="any" name="Weight" placeholder="Weight (in kg)" class="form-control" required>
+          <input type="number" step="any" name="Income" placeholder="Income" class="form-control" required>
+          <input type="number" step="any" name="BMI" placeholder="BMI" class="form-control" required>
+          <input type="number" step="any" name="Mean_of_length_of_cycle" placeholder="Mean of Length of Cycle" class="form-control" required>
+          <input type="number" step="any" name="Menses_score" placeholder="Menses Score" class="form-control" required>
+        </div>
+        <button type="submit" class="btn-predict">Analyze Health</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 PCOD Disease Prediction & Risk Stratification. All rights reserved.
+  </footer>
+</body>
+</html>
